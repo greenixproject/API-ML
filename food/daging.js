@@ -1,4 +1,5 @@
 const express = require('express');
+const router = express.Router();
 const tf = require('@tensorflow/tfjs-node');
 const bodyParser = require('body-parser');
 
@@ -19,11 +20,7 @@ async function loadModel() {
 
 loadModel();
 
-app.get('/', (req, res) => {
-    res.send({ hello: 'world' });
-});
-
-app.post('/predict-daging', (req, res) => {
+router.post('/', (req, res) => {
     const { num_people, consumption } = req.body;
 
     // Do prediction
@@ -43,6 +40,4 @@ app.post('/predict-daging', (req, res) => {
     });
 });
 
-app.listen(8081, () => {
-    console.log('Server running on port 8081');
-});
+module.exports = router;
